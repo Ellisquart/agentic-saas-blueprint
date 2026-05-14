@@ -1,95 +1,70 @@
 # Agentic SaaS Blueprint
 
-> A production-tested blueprint for building real SaaS products with Claude. Distilled from a 3-month build of a fintech platform serving SMB borrowers and lender partners.
+A minimal blueprint for building production SaaS with Claude. Two files to read, one folder to copy.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Stack](https://img.shields.io/badge/Stack-Next.js%2015%20%2B%20Prisma%20%2B%20Supabase-black)](#the-stack)
-[![Workflow](https://img.shields.io/badge/Workflow-Brainstorm%20%E2%86%92%20Plan%20%E2%86%92%20TDD%20%E2%86%92%20Deploy-blue)](#the-workflow)
+## What's here
 
-## Why this exists
+```
+agentic-saas-blueprint/
+├── README.md       ← you are here
+├── CLAUDE.md       ← drop into your new project root
+├── starter/        ← copy these into your new project (mirrors real folder structure)
+└── LICENSE         ← MIT
+```
 
-Building a production SaaS with Claude is a different sport than writing a script or a side project. You will loop in circles if you don't have:
+## Start a new project in 3 commands
 
-- A **project-level prompt** that holds the design system and non-negotiables across every chat
-- A **workflow** (brainstorm → plan → subagent execute → verify) that prevents one-shot rewrites
-- A **theme system** that supports light/dark from day one (not bolted on later)
-- **Soft-fail wrappers** around every external API so the app builds without secrets
-- **Manual deploy fallbacks** for when the Vercel webhook silently dies
+```bash
+git clone https://github.com/NewMatrixCap/agentic-saas-blueprint /tmp/blueprint
+mkdir my-saas && cd my-saas
+cp /tmp/blueprint/CLAUDE.md . && cp -r /tmp/blueprint/starter/. .
+```
 
-This blueprint is the synthesis. Three months. 2,475 vitest tests. 450 ingested real leads. A working dark+gold marketing site. A working light/dark admin app. Multi-agent Marvin swarm with a self-improvement loop. Every lesson is in this folder.
+That's it. Open Claude Code in the folder. Say what you want to build. CLAUDE.md handles the context.
 
-## What's inside
+```bash
+claude
+> build the marketing landing page
+```
 
-| File | What it gives you |
+The agent reads `CLAUDE.md`, follows the design system (theme tokens, light + dark, mobile-first), writes a plan, executes with TDD. No long onboarding paste required.
+
+## The 9 rules baked into CLAUDE.md
+
+1. No hardcoded colors. Use theme tokens (`text-text-app`, `bg-bg-public`, `text-gold`). Light + dark for free.
+2. Both modes work on every component, day one.
+3. Mobile-first. Test at 375 / 768 / 1280px.
+4. Cards with destinations are clickable `<Link>` wrappers with gold hover halo.
+5. Admin views have stat tiles, search, filters, pagination.
+6. TDD. Failing test first.
+7. No em-dashes in source.
+8. PII scrubbed server-side before persistence.
+9. External services soft-fail when keys are missing.
+
+## What's in `starter/`
+
+| File | Purpose |
 |---|---|
-| [`PROMPTS.md`](./PROMPTS.md) | The 4 paste-ready prompts for **Claude Projects (web UI)**: Project instructions, first-chat onboarding, per-feature template, tools setup. |
-| [`CLAUDE-CODE.md`](./CLAUDE-CODE.md) | Same idea but for **Claude Code (terminal/CLI)**: a `CLAUDE.md` to drop at your project root, a first-message prompt, and day-to-day chat openers. |
-| [`HANDBOOK.md`](./HANDBOOK.md) | The workflow, the lessons learned, the deploy fallback, the MCP setup. One file, sectioned. |
-| [`templates/`](./templates) | Drop-in starter code: theme system, theme toggle, theme-aware logo, clickable metric tile, admin list page pattern, soft-fail wrapper, voice-sweep test. |
-| [`CHANGELOG.md`](./CHANGELOG.md) | Versioning for the blueprint itself. |
+| `app/globals.css` | Theme tokens (CSS variables) + light-mode safety overrides |
+| `tailwind.config.ts` | Maps Tailwind classes to the CSS variables |
+| `lib/theme/ThemeProvider.tsx` | React provider + `useTheme()` hook |
+| `components/ui/ThemeToggle.tsx` | Sun / Moon 2-way switch |
+| `components/brand/Logo.tsx` | Theme-aware logo (`variant="auto"`) |
+| `components/app/metrics/MetricTile.tsx` | Stat tile with optional clickable `href` |
+| `lib/email/client.ts` | Soft-fail Resend wrapper (stub when no key) |
+| `tests/voice-sweep.test.ts` | Em-dash enforcement |
+| `app/admin-list-page.example.tsx` | Reference pattern for any admin list page |
+| `docs/superpowers/plans/` | Where implementation plans go |
+| `docs/superpowers/specs/` | Where design specs go |
 
-## Quick start
+The folder structure inside `starter/` is the structure you'll have in your real project. `cp -r starter/. my-saas/` and every file lands where it needs to.
 
-### If you use Claude Projects (web UI)
+## Why this is short
 
-1. **Create a Claude Project.** Paste [`PROMPTS.md`](./PROMPTS.md) section 1 into Project Instructions. Save.
-2. **Enable MCP servers.** See [`HANDBOOK.md` → MCPs](./HANDBOOK.md#mcp-setup). Minimum: Serena, Vercel, Context7.
-3. **Scaffold a Next.js 15 app.** Copy files from [`templates/`](./templates) into your repo at the matching paths. Start with `globals.css`, `tailwind.config.ts`, `ThemeProvider.tsx`, `ThemeToggle.tsx`.
-4. **Open a new chat.** Paste [`PROMPTS.md`](./PROMPTS.md) section 2 as the first message. Claude onboards and reports status.
-5. **Build your first feature.** Use [`PROMPTS.md`](./PROMPTS.md) section 3 as the template for every feature chat. Fill in the brackets.
+The first version of this repo had 5 docs and three layers of "how to use the prompts" prose. It was longer than the templates. The templates are the value. Read CLAUDE.md, copy the starter, build.
 
-### If you use Claude Code (terminal/CLI)
-
-1. **Create your project folder.** `mkdir my-new-saas && cd my-new-saas`.
-2. **Drop in `CLAUDE.md`.** Copy section A from [`CLAUDE-CODE.md`](./CLAUDE-CODE.md) into a new `CLAUDE.md` at your project root. Edit the bracketed parts.
-3. **Copy starter templates.** Bring over [`templates/`](./templates) files to the matching paths in your repo.
-4. **Open Claude Code.** Paste [`CLAUDE-CODE.md`](./CLAUDE-CODE.md) section B as the first message. Claude onboards and reports.
-5. **For every subsequent chat:** use one of the day-to-day openers in [`CLAUDE-CODE.md`](./CLAUDE-CODE.md) section C.
-
-## The stack
-
-Locked-in defaults. Swap only with explicit reason.
-
-- **Next.js 15+** App Router, route groups, server components by default
-- **TypeScript strict** — `tsc --noEmit` is a commit gate
-- **Tailwind CSS** with CSS-variable-driven theme tokens (`text-text-app`, `bg-bg-public`, etc.) — never literal color classes
-- **Prisma + Postgres on Supabase** — needs `DATABASE_URL` (pooler) + `DIRECT_URL` (direct) in `.env.local`
-- **NextAuth (Auth.js v5)** Credentials + Google providers. `SessionProvider` at root layout.
-- **Stripe Checkout** for the 3-tier SaaS subscriptions
-- **Resend** for transactional email (sandbox until DNS verified)
-- **Vercel Cron** via `vercel.json` (no Inngest unless creds are present)
-- **Recharts** for charts (text labels inherit `currentColor` for theme switching)
-- **Cloudflare Turnstile** captcha on signup
-- **Vitest** for tests; tests/ mirrors src tree
-
-## Design principles (the short version)
-
-1. **No hardcoded color literals.** No `text-white`, no `bg-[#xxxxxx]`. Always theme tokens. Light + dark mode from day one.
-2. **Mobile-first.** Every layout tested at 375 / 768 / 1280px. No horizontal scroll. Hit targets ≥44px.
-3. **Cards are clickable.** If a card represents a thing with a destination, the whole card is a `<Link>` with `-3px` hover lift + gold halo.
-4. **Admin shows real data.** Stat tiles, search, filters, pagination — not bare HTML tables.
-5. **Soft-fail externals.** Plaid, Stripe, Resend, Inngest — all behind env-gated wrappers that return typed no-ops when keys are missing. App builds without any third-party keys.
-6. **TDD.** Failing vitest → minimal impl → green → commit. The test count grows with the feature count.
-7. **No em-dashes in source.** The voice-sweep test enforces it. Use `" - "` or `": "`.
-8. **PII scrubbing on every capture.** SSN, full EIN, card numbers — redacted server-side before persistence.
-
-## The workflow
-
-```
-   brainstorm     →    write plan    →    subagent execute    →    verify deploy
-   (one Q at a        (file paths,         (TDD per task,           (Vercel MCP +
-    time, propose      full code in         spec review +            curl /api/health)
-    2-3 approaches)    each step)           code quality review)
-```
-
-Every feature gets a markdown plan saved to `docs/superpowers/plans/YYYY-MM-DD-<slug>.md`. Every task in the plan is bite-sized (2-5 minutes). Every commit references the plan it's executing.
+If you want the long story (the 3-month build it was distilled from, the workflow rationale, the deploy fallback for when Vercel's webhook dies, the MCP setup) — it lives in the commit history and the prior tags. Run `git log` for the receipts.
 
 ## License
 
-MIT. See [`LICENSE`](./LICENSE). Free to use, fork, modify, redistribute. Attribution appreciated but not required.
-
-## Credits
-
-Synthesized from the New Matrix Capital build (newmatrix.capital). The lessons here cost time and circles to learn — they're free to inherit.
-
-If you ship something good with this, [open an issue](#) and tell me. I'll add it to a "built with" section.
+MIT. Free. Fork, adapt, ship.
