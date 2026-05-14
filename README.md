@@ -22,18 +22,29 @@ This blueprint is the synthesis. Three months. 2,475 vitest tests. 450 ingested 
 
 | File | What it gives you |
 |---|---|
-| [`PROMPTS.md`](./PROMPTS.md) | The 4 paste-ready prompts: Project instructions, first-chat onboarding, per-feature template, tools setup. |
+| [`PROMPTS.md`](./PROMPTS.md) | The 4 paste-ready prompts for **Claude Projects (web UI)**: Project instructions, first-chat onboarding, per-feature template, tools setup. |
+| [`CLAUDE-CODE.md`](./CLAUDE-CODE.md) | Same idea but for **Claude Code (terminal/CLI)**: a `CLAUDE.md` to drop at your project root, a first-message prompt, and day-to-day chat openers. |
 | [`HANDBOOK.md`](./HANDBOOK.md) | The workflow, the lessons learned, the deploy fallback, the MCP setup. One file, sectioned. |
 | [`templates/`](./templates) | Drop-in starter code: theme system, theme toggle, theme-aware logo, clickable metric tile, admin list page pattern, soft-fail wrapper, voice-sweep test. |
 | [`CHANGELOG.md`](./CHANGELOG.md) | Versioning for the blueprint itself. |
 
-## Quick start (5 minutes)
+## Quick start
+
+### If you use Claude Projects (web UI)
 
 1. **Create a Claude Project.** Paste [`PROMPTS.md`](./PROMPTS.md) section 1 into Project Instructions. Save.
 2. **Enable MCP servers.** See [`HANDBOOK.md` → MCPs](./HANDBOOK.md#mcp-setup). Minimum: Serena, Vercel, Context7.
 3. **Scaffold a Next.js 15 app.** Copy files from [`templates/`](./templates) into your repo at the matching paths. Start with `globals.css`, `tailwind.config.ts`, `ThemeProvider.tsx`, `ThemeToggle.tsx`.
 4. **Open a new chat.** Paste [`PROMPTS.md`](./PROMPTS.md) section 2 as the first message. Claude onboards and reports status.
 5. **Build your first feature.** Use [`PROMPTS.md`](./PROMPTS.md) section 3 as the template for every feature chat. Fill in the brackets.
+
+### If you use Claude Code (terminal/CLI)
+
+1. **Create your project folder.** `mkdir my-new-saas && cd my-new-saas`.
+2. **Drop in `CLAUDE.md`.** Copy section A from [`CLAUDE-CODE.md`](./CLAUDE-CODE.md) into a new `CLAUDE.md` at your project root. Edit the bracketed parts.
+3. **Copy starter templates.** Bring over [`templates/`](./templates) files to the matching paths in your repo.
+4. **Open Claude Code.** Paste [`CLAUDE-CODE.md`](./CLAUDE-CODE.md) section B as the first message. Claude onboards and reports.
+5. **For every subsequent chat:** use one of the day-to-day openers in [`CLAUDE-CODE.md`](./CLAUDE-CODE.md) section C.
 
 ## The stack
 

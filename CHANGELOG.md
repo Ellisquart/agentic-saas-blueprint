@@ -2,6 +2,14 @@
 
 All notable changes to this blueprint will be documented in this file.
 
+## [0.2.0] - 2026-05-14
+
+### Added
+- `CLAUDE-CODE.md` - Claude Code (terminal/CLI) kit: a CLAUDE.md to drop at project root, a first-message prompt, and 5 day-to-day chat openers (build, fix, audit, ship, resync)
+
+### Changed
+- README quick-start split into two paths: Claude Projects (web UI) and Claude Code (CLI)
+
 ## [0.1.0] - 2026-05-14
 
 ### Added
