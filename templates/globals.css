@@ -1,0 +1,169 @@
+/*
+ * globals.css
+ *
+ * The whole theme system rests on CSS variables defined here and flipped
+ * via data-theme on <html>. Tailwind classes (text-text-app, bg-bg-public,
+ * etc.) map to these variables in tailwind.config.ts.
+ *
+ * Rule: components never reach for literal colors (text-white, bg-[#xxxxxx]).
+ * They use the tokens. The tokens switch on data-theme. Light and dark mode
+ * both work for free.
+ */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Public (marketing) tokens - dark default */
+  --bg-public: #060912;
+  --surface-public: #0f1322;
+  --border-public: #1e2436;
+  --text-public-primary: #ffffff;
+  --text-public-secondary: #8892a4;
+
+  /* App (interior) tokens - dark default */
+  --bg-app: #0b1220;
+  --surface-app: #111a2a;
+  --border-app: rgba(255, 255, 255, 0.10);
+  --text-app-primary: #ffffff;
+  --text-app-secondary: #8892a4;
+
+  /* Shared semantic tokens */
+  --gold: #d4a853;
+  --success-public: #4ecb71;
+  --success-app: #4ecb71;
+  --danger-public: #e05555;
+  --danger-app: #e05555;
+  --warning-public: #d4a853;
+  --warning-app: #d4a853;
+}
+
+/* Explicit dark scheme (so the toggle can flip back to dark even when OS prefers light) */
+[data-theme='dark'] {
+  --bg-public: #060912;
+  --surface-public: #0f1322;
+  --border-public: #1e2436;
+  --text-public-primary: #ffffff;
+  --text-public-secondary: #8892a4;
+
+  --bg-app: #0b1220;
+  --surface-app: #111a2a;
+  --border-app: rgba(255, 255, 255, 0.10);
+  --text-app-primary: #ffffff;
+  --text-app-secondary: #8892a4;
+
+  --gold: #d4a853;
+  --success-public: #4ecb71;
+  --success-app: #4ecb71;
+  --danger-public: #e05555;
+  --danger-app: #e05555;
+  --warning-public: #d4a853;
+  --warning-app: #d4a853;
+}
+
+/* Light scheme. Marketing surfaces are warm cream; app interior is white. */
+[data-theme='light'] {
+  --bg-public: #f8f6f1;
+  --surface-public: #ffffff;
+  --border-public: #e7e5e0;
+  --text-public-primary: #0f1929;
+  --text-public-secondary: #475569;
+
+  --bg-app: #ffffff;
+  --surface-app: #f8fafc;
+  --border-app: #e2e8f0;
+  --text-app-primary: #0f1929;
+  --text-app-secondary: #475569;
+
+  --gold: #b8860b;
+  --success-public: #16a34a;
+  --success-app: #16a34a;
+  --danger-public: #dc2626;
+  --danger-app: #dc2626;
+  --warning-public: #b8860b;
+  --warning-app: #b8860b;
+}
+
+html, body {
+  background: var(--bg-public);
+  color: var(--text-public-primary);
+  font-family: 'Inter', -apple-system, 'SF Pro Display', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.theme-app {
+  background: var(--bg-app);
+  color: var(--text-app-primary);
+}
+
+/* Visible focus ring everywhere - accessibility win */
+*:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ============================================================
+ * LIGHT-MODE GLOBAL REMAPS (the safety valve)
+ *
+ * If your codebase already has 90+ components using `text-white`,
+ * `bg-white/[0.04]`, `border-white/[0.10]` as dark-only tokens,
+ * these specificity-scoped rules flip them all at once in light mode.
+ *
+ * New code should NOT rely on this - use the tokens.
+ * ============================================================ */
+
+[data-theme='light'] .text-white,
+[data-theme='light'] .group:hover .group-hover\:text-white,
+[data-theme='light'] .hover\:text-white:hover {
+  color: var(--text-public-primary) !important;
+}
+
+/* bg-white overlays - invert to subtle dark for elevation effect */
+[data-theme='light'] .bg-white\/\[0\.02\] { background-color: rgba(15, 25, 41, 0.02) !important; }
+[data-theme='light'] .bg-white\/\[0\.03\] { background-color: rgba(15, 25, 41, 0.03) !important; }
+[data-theme='light'] .bg-white\/\[0\.04\] { background-color: rgba(15, 25, 41, 0.04) !important; }
+[data-theme='light'] .bg-white\/\[0\.05\] { background-color: rgba(15, 25, 41, 0.05) !important; }
+[data-theme='light'] .bg-white\/\[0\.06\] { background-color: rgba(15, 25, 41, 0.05) !important; }
+[data-theme='light'] .bg-white\/\[0\.08\] { background-color: rgba(15, 25, 41, 0.07) !important; }
+[data-theme='light'] .bg-white\/\[0\.10\] { background-color: rgba(15, 25, 41, 0.08) !important; }
+[data-theme='light'] .bg-white\/5 { background-color: rgba(15, 25, 41, 0.05) !important; }
+[data-theme='light'] .bg-white\/10 { background-color: rgba(15, 25, 41, 0.07) !important; }
+[data-theme='light'] .bg-white\/20 { background-color: rgba(15, 25, 41, 0.10) !important; }
+
+/* Hover variants */
+[data-theme='light'] .hover\:bg-white\/5:hover { background-color: rgba(15, 25, 41, 0.06) !important; }
+[data-theme='light'] .hover\:bg-white\/\[0\.06\]:hover { background-color: rgba(15, 25, 41, 0.07) !important; }
+[data-theme='light'] .hover\:bg-white\/\[0\.08\]:hover { background-color: rgba(15, 25, 41, 0.08) !important; }
+[data-theme='light'] .hover\:bg-white\/10:hover { background-color: rgba(15, 25, 41, 0.10) !important; }
+
+/* border-white overlays - subtle dark borders */
+[data-theme='light'] .border-white\/5 { border-color: rgba(15, 25, 41, 0.08) !important; }
+[data-theme='light'] .border-white\/10 { border-color: rgba(15, 25, 41, 0.10) !important; }
+[data-theme='light'] .border-white\/20 { border-color: rgba(15, 25, 41, 0.14) !important; }
+[data-theme='light'] .border-white\/\[0\.05\] { border-color: rgba(15, 25, 41, 0.06) !important; }
+[data-theme='light'] .border-white\/\[0\.08\] { border-color: rgba(15, 25, 41, 0.08) !important; }
+[data-theme='light'] .border-white\/\[0\.10\] { border-color: rgba(15, 25, 41, 0.10) !important; }
+[data-theme='light'] .border-white\/\[0\.12\] { border-color: rgba(15, 25, 41, 0.12) !important; }
+[data-theme='light'] .border-white\/\[0\.15\] { border-color: rgba(15, 25, 41, 0.15) !important; }
+[data-theme='light'] .hover\:border-white\/20:hover { border-color: rgba(15, 25, 41, 0.18) !important; }
+
+/* Recharts svg text - inherits currentColor in light mode so axis labels become dark */
+[data-theme='light'] svg text {
+  fill: currentColor;
+}
+
+/* Theme-aware logo - strip the brightness/invert filter in light mode */
+[data-theme='light'] img[data-testid='nmc-logo'][data-variant='dark'] {
+  filter: none !important;
+}
+
+/* Gradient cards: dark-tinted gradient stops need a light base in light mode
+ * so they read as elevated surfaces, not see-through. */
+[data-theme='light'] .bg-gradient-to-br,
+[data-theme='light'] .bg-gradient-to-b,
+[data-theme='light'] .bg-gradient-to-r,
+[data-theme='light'] .bg-gradient-to-l {
+  background-color: rgba(255, 255, 255, 0.65);
+}
