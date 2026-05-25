@@ -1,0 +1,54 @@
+{
+  "version": 1,
+  "tools": [
+    {
+      "name": "Claude Code",
+      "category": "agent-runtime",
+      "status": "configured",
+      "verify": "Run claude from the project root and check /mcp if needed.",
+      "url": "https://code.claude.com/docs/"
+    },
+    {
+      "name": "Serena MCP",
+      "category": "code-intelligence",
+      "status": "scaffold-only",
+      "verify": "Install Serena, add MCP config, then confirm tools appear in Claude.",
+      "url": "https://github.com/oraios/serena"
+    },
+    {
+      "name": "Graphiti",
+      "category": "memory-graph",
+      "status": "scaffold-only",
+      "verify": "Start Graphiti and run a memory write/read smoke test.",
+      "url": "https://github.com/getzep/graphiti"
+    },
+    {
+      "name": "Obsidian",
+      "category": "knowledge-vault",
+      "status": "configured",
+      "verify": "Open the project folder or .ai-os/memory folder as a vault.",
+      "url": "https://obsidian.md/"
+    },
+    {
+      "name": "Obsidian Local REST API",
+      "category": "knowledge-vault-api",
+      "status": "scaffold-only",
+      "verify": "Install plugin, add OBSIDIAN_REST_API_KEY, call local API.",
+      "url": "https://www.obsidianstats.com/plugins/obsidian-local-rest-api"
+    },
+    {
+      "name": "Ollama",
+      "category": "local-models",
+      "status": "scaffold-only",
+      "verify": "Run ollama list.",
+      "url": "https://ollama.com/"
+    },
+    {
+      "name": "GitHub CLI",
+      "category": "repo-automation",
+      "status": "scaffold-only",
+      "verify": "Run gh auth status.",
+      "url": "https://cli.github.com/"
+    }
+  ]
+}

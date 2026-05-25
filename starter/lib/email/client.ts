@@ -45,13 +45,16 @@ class ResendEmailClient implements EmailClient {
   async sendEmail(input: SendEmailInput): Promise<SendEmailResult> {
     const { Resend } = await import('resend');
     const client = new Resend(this.apiKey);
+    const body =
+      input.html != null
+        ? { html: input.html }
+        : { text: input.text ?? '' };
     try {
       const { data, error } = await client.emails.send({
         from: input.from ?? 'onboarding@resend.dev',
         to: input.to,
         subject: input.subject,
-        html: input.html,
-        text: input.text,
+        ...body,
       });
       if (error) return { ok: false, error: error.message };
       return { ok: true, id: data?.id };

@@ -1,49 +1,99 @@
-# [PROJECT NAME]
+# Project Agent Rules
 
-[One sentence: what this product is and who it's for]
+You are building a real product, not a demo.
 
-Production URL: [URL or "TBD"]
-Branch in active development: main
-Canonical contact email: [your contact email]
+## Mission
 
-## Stack (locked)
+Make this folder a working project users can understand, run, extend, test, and ship.
 
-Next.js 15 App Router · TypeScript strict · Tailwind (theme tokens, no literals) · Prisma + Supabase · NextAuth v5 · Stripe · Resend · Vitest · Vercel Cron
+Keep one center:
 
-## Non-negotiables
+- one app
+- one chat
+- one memory
+- one source of truth
+- many optional tools
 
-1. No hardcoded color literals. Use `text-text-app`, `bg-bg-public`, `text-gold`, etc. Tokens flip on `[data-theme]` in `globals.css` automatically.
-2. Light + dark mode work on every component, day one.
-3. Mobile-first. Test 375 / 768 / 1280px.
-4. Cards with a destination are clickable `<Link>` wrappers with hover lift + gold halo.
-5. Admin views show real data with stat tiles, search, filters, pagination.
-6. TDD. Failing vitest first, then impl.
-7. No em-dashes in source files.
-8. PII (SSN, full EIN, card numbers) scrubbed server-side before persistence.
-9. Soft-fail on external services. Every Plaid/Stripe/Resend integration sits behind an env-gated wrapper. App builds without third-party keys.
+## Hard Rules
 
-## Workflow
+1. Use existing project files before inventing structure.
+2. Read `.ai-os/memory/MEMORY.md` before large changes.
+3. Use `.ai-os/agents/` for role behavior.
+4. Use `.ai-os/workflows/` for repeatable work.
+5. Mark unavailable integrations as `Scaffold Only`.
+6. Do not claim Serena, Graphiti, Obsidian, GitHub, billing, auth, email, or deploy works until verified.
+7. Do not paste secrets into chat, logs, tests, or commits.
+8. Add tests for risky logic.
+9. Run verification before declaring done.
+10. Keep the product useful on day one.
 
-1. Brainstorm → save spec to `docs/superpowers/specs/`
-2. Plan → save plan to `docs/superpowers/plans/` (file paths + full code, no placeholders)
-3. Subagent execute → task-by-task with TDD + spec review + code-quality review
-4. `tsc --noEmit && vitest run && next build` → commit → push to main
-5. **Verify deploy fired** via Vercel MCP. Webhook is unreliable; if commit SHA doesn't match latest READY deploy, run `vercel deploy --prod --yes`.
-6. Curl `/api/health`. Confirm 200.
+## Default Build Loop
 
-## Anti-patterns
+1. Inspect files.
+2. Read memory.
+3. Write a tiny plan only if scope needs it.
+4. Implement.
+5. Test.
+6. Fix.
+7. Commit.
+8. Update memory with decisions.
 
-- "Hotfix" comments that disable features instead of fixing root cause
-- Building single-theme UI with plans to "add light later"
-- Component-by-component sweep migrations (use a single CSS specificity layer scoped to `[data-theme='light']`)
-- Skipping mobile review
-- Bare HTML tables in admin pages
-- Plans with placeholders ("TODO", "fill in details")
-- Commits without typecheck + vitest first
-- Trusting the Vercel auto-deploy webhook without verification
+## Product Standard
 
-## Behavior
+Every feature needs:
 
-Default to action. Ask one clarifying question only when ambiguity blocks progress. When asked to plan, deliver complete file paths and code blocks. When asked to build, write the failing test, the code, the commit. When asked to ship, push AND verify the deploy AND curl `/api/health`.
+- user goal
+- UI path
+- empty state
+- error state
+- loading state
+- data source
+- privacy note when personal data appears
+- test or verification step
 
-Source: https://github.com/NewMatrixCap/agentic-saas-blueprint
+## UI Rules
+
+- Mobile first.
+- No giant empty hero unless this is a marketing page.
+- Use real app screens as the first surface.
+- Buttons must do something.
+- Navigation must be obvious.
+- Empty state must help the user take next action.
+- Avoid hardcoded colors. Use theme tokens.
+
+## Security Rules
+
+- Keep secrets in env only.
+- Validate all request bodies.
+- Rate limit auth and write endpoints.
+- Scrub PII before logs.
+- Gate admin pages.
+- Use least-privilege API keys.
+- Add webhook signature checks before trusting vendor webhooks.
+
+## Integration Honesty
+
+Use these labels:
+
+- `Verified`: installed, configured, tested.
+- `Configured`: files exist, user still needs keys or local app.
+- `Scaffold Only`: shape exists, not working yet.
+- `Blocked`: cannot complete without user/vendor action.
+
+## Verification Commands
+
+Use what exists in the project:
+
+```bash
+pnpm lint
+pnpm test
+pnpm build
+```
+
+If a command is missing, add it or clearly say it is missing.
+
+## Source
+
+Generated from Agentic SaaS OS Blueprint:
+
+https://github.com/NewMatrixCap/agentic-saas-blueprint

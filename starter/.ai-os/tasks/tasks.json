@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "bootstrap-001",
+      "title": "Build smallest useful product slice",
+      "status": "todo",
+      "workflow": "feature-build"
+    },
+    {
+      "id": "audit-001",
+      "title": "Run production audit before deploy",
+      "status": "todo",
+      "workflow": "production-audit"
+    }
+  ]
+}

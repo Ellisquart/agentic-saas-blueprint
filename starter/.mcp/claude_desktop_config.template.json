@@ -1,0 +1,28 @@
+{
+  "mcpServers": {
+    "serena": {
+      "status": "scaffold-only",
+      "command": "uvx",
+      "args": ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server"],
+      "notes": "Install and verify before marking active."
+    },
+    "graphiti": {
+      "status": "scaffold-only",
+      "command": "python",
+      "args": ["-m", "graphiti_mcp_server"],
+      "env": {
+        "GRAPHITI_URL": "${GRAPHITI_URL}"
+      },
+      "notes": "Requires Graphiti setup and backing graph store."
+    },
+    "obsidian": {
+      "status": "scaffold-only",
+      "command": "npx",
+      "args": ["-y", "obsidian-local-rest-api-mcp"],
+      "env": {
+        "OBSIDIAN_REST_API_KEY": "${OBSIDIAN_REST_API_KEY}"
+      },
+      "notes": "Requires Obsidian Local REST API plugin."
+    }
+  }
+}

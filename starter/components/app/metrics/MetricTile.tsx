@@ -43,7 +43,7 @@ export function MetricTile(props: MetricTileProps) {
 
   const interactive = Boolean(props.href);
   const baseChrome =
-    'rounded-xl p-5 bg-gradient-to-br from-white/[0.06] to-white/[0.02] ' +
+    'rounded-md p-5 bg-gradient-to-br from-white/[0.06] to-white/[0.02] ' +
     'border border-white/[0.12] shadow-[0_8px_28px_-12px_rgba(0,0,0,0.6)] ' +
     'transition-all duration-300 group relative';
   const interactiveChrome = interactive
