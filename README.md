@@ -95,9 +95,7 @@ Obsidian Local REST API plugin info: https://www.obsidianstats.com/plugins/obsid
 - Real project context first.
 - No demo-only dashboard as the main product.
 - No fake integrations.
-- Unknown tools are `Scaffold Only`.
-- Use memory before repeating old decisions.
-- Write files, run checks, commit cleanly.
+- Unknown tools are `Scaffold Only`
 - Prefer boring working software over architecture theater.
 
 ## Repo Contents
@@ -117,3 +115,5 @@ Obsidian Local REST API plugin info: https://www.obsidianstats.com/plugins/obsid
 ## License
 
 MIT.
+
+Made by Ellis
